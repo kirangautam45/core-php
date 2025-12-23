@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 02: Variables & Data Types - PHP Course</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #4F5B93;
+            border-bottom: 3px solid #4F5B93;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #4F5B93;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+        h3 {
+            color: #666;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        ul, ol {
+            margin-bottom: 15px;
+            padding-left: 30px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        code {
+            background: #e8e8e8;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        .ascii-box {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            font-family: monospace;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .learning-objectives {
+            background: #e8f4e8;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        .tip {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: #fff;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #4F5B93;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 30px 0;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #4F5B93;
+        }
+        .nav-links a {
+            color: #4F5B93;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .exercise {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 5px 5px 0;
+        }
+        strong {
+            color: #4F5B93;
+        }
+        .comment {
+            color: #6a9955;
+        }
+        .keyword {
+            color: #569cd6;
+        }
+        .string {
+            color: #ce9178;
+        }
+        .variable {
+            color: #9cdcfe;
+        }
+    </style>
+</head>
+<body>
+    <h1>Day 02: Variables & Data Types</h1>
+
+    <div class="learning-objectives">
+        <h2 style="margin-top: 0; border: none;">Learning Objectives</h2>
+        <p>By the end of today, you will:</p>
+        <ul>
+            <li>Understand what variables are and how to create them</li>
+            <li>Know the different data types in PHP</li>
+            <li>Use debugging functions to inspect variables</li>
+            <li>Apply variable naming conventions</li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <h2>1. What are Variables?</h2>
+    <p>Variables are <strong>containers for storing data</strong>. Think of them as labeled boxes where you can put information.</p>
+
+    <div class="ascii-box">
+<pre>┌─────────────────┐
+│  $name          │  ← Variable name (label)
+│  ┌───────────┐  │
+│  │  "John"   │  │  ← Value (content)
+│  └───────────┘  │
+└─────────────────┘</pre>
+    </div>
+
+    <h3>Basic Syntax</h3>
+    <pre><code>&lt;?php
+    $variableName = "value";
+?&gt;</code></pre>
+
+    <p><strong>Rules for variable names:</strong></p>
+    <ul>
+        <li>Must start with <code>$</code> sign</li>
+        <li>Followed by letter or underscore (not number)</li>
+        <li>Can contain letters, numbers, underscores</li>
+        <li>Case-sensitive (<code>$name</code> and <code>$Name</code> are different!)</li>
+    </ul>
+
+    <pre><code>&lt;?php
+    <span class="comment">// Valid variable names</span>
+    $name = "John";
+    $age = 25;
+    $_private = "secret";
+    $userName123 = "johndoe";
+
+    <span class="comment">// Invalid variable names</span>
+    $123name = "wrong";     <span class="comment">// Can't start with number</span>
+    $user-name = "wrong";   <span class="comment">// Can't use hyphen</span>
+    $user name = "wrong";   <span class="comment">// Can't have spaces</span>
+?&gt;</code></pre>
+
+    <hr>
+
+    <h2>2. Data Types in PHP</h2>
+    <p>PHP has 8 primitive data types. Let's focus on the 4 most common:</p>
+
+    <h3>String</h3>
+    <p>Text wrapped in quotes.</p>
+    <pre><code>&lt;?php
+    $singleQuote = 'Hello World';
+    $doubleQuote = "Hello World";
+
+    <span class="comment">// Difference: Double quotes can parse variables</span>
+    $name = "John";
+    echo "Hello, $name";     <span class="comment">// Output: Hello, John</span>
+    echo 'Hello, $name';     <span class="comment">// Output: Hello, $name (literal)</span>
+
+    <span class="comment">// Escape characters work in double quotes</span>
+    echo "Line 1\nLine 2";   <span class="comment">// \n = new line</span>
+    echo "He said \"Hi\"";   <span class="comment">// \" = quote character</span>
+?&gt;</code></pre>
+
+    <h3>Integer</h3>
+    <p>Whole numbers (no decimals).</p>
+    <pre><code>&lt;?php
+    $positive = 42;
+    $negative = -17;
+    $zero = 0;
+
+    <span class="comment">// Different notations</span>
+    $decimal = 255;          <span class="comment">// Normal decimal</span>
+    $octal = 0377;           <span class="comment">// Octal (starts with 0)</span>
+    $hex = 0xFF;             <span class="comment">// Hexadecimal (starts with 0x)</span>
+    $binary = 0b11111111;    <span class="comment">// Binary (starts with 0b)</span>
+
+    <span class="comment">// All above equal 255!</span>
+?&gt;</code></pre>
+
+    <h3>Float (Double)</h3>
+    <p>Numbers with decimal points.</p>
+    <pre><code>&lt;?php
+    $price = 19.99;
+    $pi = 3.14159;
+    $negative = -2.5;
+
+    <span class="comment">// Scientific notation</span>
+    $big = 1.2e3;      <span class="comment">// 1.2 × 10³ = 1200</span>
+    $small = 7.5e-2;   <span class="comment">// 7.5 × 10⁻² = 0.075</span>
+?&gt;</code></pre>
+
+    <h3>Boolean</h3>
+    <p>True or false values.</p>
+    <pre><code>&lt;?php
+    $isActive = true;
+    $isDeleted = false;
+
+    <span class="comment">// Often used in conditions</span>
+    $isLoggedIn = true;
+    if ($isLoggedIn) {
+        echo "Welcome back!";
+    }
+
+    <span class="comment">// These values are considered FALSE:</span>
+    <span class="comment">// - false (boolean)</span>
+    <span class="comment">// - 0 (integer)</span>
+    <span class="comment">// - 0.0 (float)</span>
+    <span class="comment">// - "" (empty string)</span>
+    <span class="comment">// - "0" (string zero)</span>
+    <span class="comment">// - [] (empty array)</span>
+    <span class="comment">// - null</span>
+?&gt;</code></pre>
+
+    <h3>Array (Preview)</h3>
+    <p>Collection of values (covered in depth on Day 6).</p>
+    <pre><code>&lt;?php
+    $colors = ["red", "green", "blue"];
+    $person = [
+        "name" =&gt; "John",
+        "age" =&gt; 25
+    ];
+?&gt;</code></pre>
+
+    <h3>NULL</h3>
+    <p>A variable with no value.</p>
+    <pre><code>&lt;?php
+    $empty = null;
+
+    <span class="comment">// Or unset a variable</span>
+    $name = "John";
+    unset($name);  <span class="comment">// $name is now undefined</span>
+?&gt;</code></pre>
+
+    <hr>
+
+    <h2>3. Checking Data Types</h2>
+
+    <h3>gettype() - Get the type as string</h3>
+    <pre><code>&lt;?php
+    $name = "John";
+    $age = 25;
+    $price = 19.99;
+    $active = true;
+    $empty = null;
+
+    echo gettype($name);    <span class="comment">// string</span>
+    echo gettype($age);     <span class="comment">// integer</span>
+    echo gettype($price);   <span class="comment">// double</span>
+    echo gettype($active);  <span class="comment">// boolean</span>
+    echo gettype($empty);   <span class="comment">// NULL</span>
+?&gt;</code></pre>
+
+    <h3>Type-checking functions</h3>
+    <pre><code>&lt;?php
+    $value = "Hello";
+
+    is_string($value);    <span class="comment">// true</span>
+    is_int($value);       <span class="comment">// false</span>
+    is_float($value);     <span class="comment">// false</span>
+    is_bool($value);      <span class="comment">// false</span>
+    is_null($value);      <span class="comment">// false</span>
+    is_array($value);     <span class="comment">// false</span>
+    is_numeric($value);   <span class="comment">// false</span>
+    is_numeric("123");    <span class="comment">// true (numeric string!)</span>
+?&gt;</code></pre>
+
+    <hr>
+
+    <h2>4. Debugging with var_dump() and print_r()</h2>
+
+    <h3>var_dump() - Detailed information</h3>
+    <pre><code>&lt;?php
+    $name = "John";
+    $age = 25;
+    $price = 19.99;
+    $active = true;
+    $colors = ["red", "green", "blue"];
+
+    var_dump($name);
+    <span class="comment">// Output: string(4) "John"</span>
+
+    var_dump($age);
+    <span class="comment">// Output: int(25)</span>
+
+    var_dump($price);
+    <span class="comment">// Output: float(19.99)</span>
+
+    var_dump($active);
+    <span class="comment">// Output: bool(true)</span>
+
+    var_dump($colors);
+    <span class="comment">// Output: array(3) { [0]=&gt; string(3) "red" [1]=&gt; string(5) "green" [2]=&gt; string(4) "blue" }</span>
+?&gt;</code></pre>
+
+    <h3>print_r() - Human-readable output (great for arrays)</h3>
+    <pre><code>&lt;?php
+    $person = [
+        "name" =&gt; "John",
+        "age" =&gt; 25,
+        "city" =&gt; "New York"
+    ];
+
+    print_r($person);
+    <span class="comment">/*
+    Output:
+    Array
+    (
+        [name] =&gt; John
+        [age] =&gt; 25
+        [city] =&gt; New York
+    )
+    */</span>
+?&gt;</code></pre>
+
+    <div class="tip">
+        <strong>Tip:</strong> Wrap in <code>&lt;pre&gt;</code> for better formatting
+        <pre><code>&lt;?php
+    $data = ["apple", "banana", "cherry"];
+
+    echo "&lt;pre&gt;";
+    print_r($data);
+    echo "&lt;/pre&gt;";
+?&gt;</code></pre>
+    </div>
+
+    <hr>
+
+    <h2>5. Variable Operations</h2>
+
+    <h3>String Concatenation</h3>
+    <pre><code>&lt;?php
+    $firstName = "John";
+    $lastName = "Doe";
+
+    <span class="comment">// Using dot (.) operator</span>
+    $fullName = $firstName . " " . $lastName;
+    echo $fullName;  <span class="comment">// John Doe</span>
+
+    <span class="comment">// Concatenation assignment (.=)</span>
+    $greeting = "Hello";
+    $greeting .= " World";
+    echo $greeting;  <span class="comment">// Hello World</span>
+?&gt;</code></pre>
+
+    <h3>Variable in Strings (Interpolation)</h3>
+    <pre><code>&lt;?php
+    $name = "John";
+    $age = 25;
+
+    <span class="comment">// Double quotes allow variable interpolation</span>
+    echo "My name is $name and I am $age years old.";
+
+    <span class="comment">// For complex expressions, use curly braces</span>
+    $fruits = ["apple", "banana"];
+    echo "I like {$fruits[0]}";
+
+    <span class="comment">// Object properties</span>
+    <span class="comment">// echo "Name: {$user-&gt;name}";</span>
+?&gt;</code></pre>
+
+    <hr>
+
+    <h2>6. Type Juggling (Automatic Conversion)</h2>
+    <p>PHP automatically converts types when needed:</p>
+    <pre><code>&lt;?php
+    <span class="comment">// String to number</span>
+    $result = "10" + 5;
+    var_dump($result);  <span class="comment">// int(15)</span>
+
+    <span class="comment">// Number to string</span>
+    $text = "Age: " . 25;
+    var_dump($text);  <span class="comment">// string(7) "Age: 25"</span>
+
+    <span class="comment">// To boolean</span>
+    $empty = "";
+    if ($empty) {
+        echo "This won't print";  <span class="comment">// Empty string is false</span>
+    }
+
+    <span class="comment">// Be careful!</span>
+    $weird = "10 apples" + 5;
+    var_dump($weird);  <span class="comment">// int(15) - PHP takes the leading number</span>
+?&gt;</code></pre>
+
+    <h3>Explicit Type Casting</h3>
+    <pre><code>&lt;?php
+    $string = "42";
+
+    $integer = (int) $string;      <span class="comment">// 42</span>
+    $float = (float) $string;      <span class="comment">// 42.0</span>
+    $boolean = (bool) $string;     <span class="comment">// true</span>
+    $array = (array) $string;      <span class="comment">// ["42"]</span>
+
+    var_dump($integer);  <span class="comment">// int(42)</span>
+?&gt;</code></pre>
+
+    <hr>
+
+    <h2>7. Constants</h2>
+    <p>Values that cannot change after being defined.</p>
+    <pre><code>&lt;?php
+    <span class="comment">// Using define() - traditional way</span>
+    define("SITE_NAME", "My Website");
+    define("MAX_USERS", 100);
+
+    echo SITE_NAME;  <span class="comment">// My Website (no $ sign!)</span>
+
+    <span class="comment">// Using const - modern way (PHP 5.3+)</span>
+    const PI = 3.14159;
+    const DEBUG_MODE = true;
+
+    echo PI;  <span class="comment">// 3.14159</span>
+
+    <span class="comment">// Constants are global and case-sensitive by default</span>
+?&gt;</code></pre>
+
+    <h3>Built-in Constants</h3>
+    <pre><code>&lt;?php
+    echo PHP_VERSION;      <span class="comment">// Your PHP version</span>
+    echo PHP_INT_MAX;      <span class="comment">// Maximum integer value</span>
+    echo __FILE__;         <span class="comment">// Current file path</span>
+    echo __LINE__;         <span class="comment">// Current line number</span>
+    echo __DIR__;          <span class="comment">// Current directory</span>
+?&gt;</code></pre>
+
+    <hr>
+
+    <h2>8. Practice Examples</h2>
+
+    <h3>Example 1: Personal Information</h3>
+    <pre><code>&lt;?php
+    <span class="comment">// Define personal information</span>
+    $name = "John Doe";
+    $age = 25;
+    $height = 5.9;  <span class="comment">// in feet</span>
+    $isStudent = true;
+
+    <span class="comment">// Display with proper formatting</span>
+    echo "&lt;h2&gt;Personal Information&lt;/h2&gt;";
+    echo "&lt;p&gt;&lt;strong&gt;Name:&lt;/strong&gt; $name&lt;/p&gt;";
+    echo "&lt;p&gt;&lt;strong&gt;Age:&lt;/strong&gt; $age years old&lt;/p&gt;";
+    echo "&lt;p&gt;&lt;strong&gt;Height:&lt;/strong&gt; $height feet&lt;/p&gt;";
+    echo "&lt;p&gt;&lt;strong&gt;Student:&lt;/strong&gt; " . ($isStudent ? "Yes" : "No") . "&lt;/p&gt;";
+
+    <span class="comment">// Debug</span>
+    echo "&lt;h3&gt;Debug Info:&lt;/h3&gt;";
+    echo "&lt;pre&gt;";
+    var_dump($name, $age, $height, $isStudent);
+    echo "&lt;/pre&gt;";
+?&gt;</code></pre>
+
+    <h3>Example 2: Shopping Cart Item</h3>
+    <pre><code>&lt;?php
+    <span class="comment">// Product details</span>
+    $productName = "Wireless Mouse";
+    $price = 29.99;
+    $quantity = 2;
+    $inStock = true;
+
+    <span class="comment">// Calculate total</span>
+    $total = $price * $quantity;
+
+    <span class="comment">// Display</span>
+    echo "&lt;div style='border: 1px solid #ccc; padding: 10px;'&gt;";
+    echo "&lt;h3&gt;$productName&lt;/h3&gt;";
+    echo "&lt;p&gt;Price: \$$price&lt;/p&gt;";           <span class="comment">// \$ escapes the dollar sign</span>
+    echo "&lt;p&gt;Quantity: $quantity&lt;/p&gt;";
+    echo "&lt;p&gt;Total: \$" . number_format($total, 2) . "&lt;/p&gt;";
+    echo "&lt;p&gt;Status: " . ($inStock ? "In Stock" : "Out of Stock") . "&lt;/p&gt;";
+    echo "&lt;/div&gt;";
+?&gt;</code></pre>
+
+    <h3>Example 3: Type Investigation</h3>
+    <pre><code>&lt;?php
+    $values = [
+        42,
+        3.14,
+        "Hello",
+        true,
+        null,
+        [1, 2, 3]
+    ];
+
+    echo "&lt;table border='1' cellpadding='10'&gt;";
+    echo "&lt;tr&gt;&lt;th&gt;Value&lt;/th&gt;&lt;th&gt;Type&lt;/th&gt;&lt;/tr&gt;";
+
+    foreach ($values as $val) {
+        echo "&lt;tr&gt;";
+        echo "&lt;td&gt;";
+        var_dump($val);
+        echo "&lt;/td&gt;";
+        echo "&lt;td&gt;" . gettype($val) . "&lt;/td&gt;";
+        echo "&lt;/tr&gt;";
+    }
+
+    echo "&lt;/table&gt;";
+?&gt;</code></pre>
+
+    <hr>
+
+    <h2>9. Hands-On Exercises</h2>
+
+    <div class="exercise">
+        <h3>Exercise 1: Variable Creation</h3>
+        <p>Create a file with variables for:</p>
+        <ul>
+            <li>Your name (string)</li>
+            <li>Your age (integer)</li>
+            <li>Your height in meters (float)</li>
+            <li>Whether you like PHP (boolean)</li>
+            <li>Display all using <code>echo</code> with proper HTML formatting</li>
+        </ul>
+    </div>
+
+    <div class="exercise">
+        <h3>Exercise 2: Type Detective</h3>
+        <p>Create an array with 5 different values of different types. Loop through and display each value's type using <code>gettype()</code>.</p>
+    </div>
+
+    <div class="exercise">
+        <h3>Exercise 3: String Concatenation</h3>
+        <p>Create variables for first name, last name, and city. Build a complete sentence using:</p>
+        <ul>
+            <li>Dot concatenation</li>
+            <li>Variable interpolation (double quotes)</li>
+        </ul>
+    </div>
+
+    <div class="exercise">
+        <h3>Exercise 4: Calculator Variables</h3>
+        <p>Create:</p>
+        <ul>
+            <li>Two number variables</li>
+            <li>Calculate and store: sum, difference, product, quotient</li>
+            <li>Display results with <code>var_dump()</code></li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <h2>10. Common Mistakes</h2>
+
+    <div class="warning">
+        <pre><code>&lt;?php
+    <span class="comment">// WRONG: Missing $ sign</span>
+    <span class="comment">// name = "John";  // Error!</span>
+
+    <span class="comment">// WRONG: Spaces in variable name</span>
+    <span class="comment">// $my name = "John";  // Error!</span>
+
+    <span class="comment">// WRONG: Starting with number</span>
+    <span class="comment">// $1stPlace = "Gold";  // Error!</span>
+
+    <span class="comment">// WRONG: Single quotes don't parse variables</span>
+    $name = "John";
+    echo 'Hello $name';  <span class="comment">// Outputs: Hello $name</span>
+
+    <span class="comment">// WRONG: Modifying a constant</span>
+    define("MAX", 100);
+    <span class="comment">// MAX = 200;  // Error!</span>
+?&gt;</code></pre>
+    </div>
+
+    <hr>
+
+    <h2>11. Key Takeaways</h2>
+
+    <table>
+        <tr>
+            <th>Concept</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td>Variable syntax</td>
+            <td><code>$name = "value";</code></td>
+        </tr>
+        <tr>
+            <td>String</td>
+            <td><code>"Hello"</code> or <code>'Hello'</code></td>
+        </tr>
+        <tr>
+            <td>Integer</td>
+            <td><code>42</code>, <code>-17</code></td>
+        </tr>
+        <tr>
+            <td>Float</td>
+            <td><code>3.14</code>, <code>19.99</code></td>
+        </tr>
+        <tr>
+            <td>Boolean</td>
+            <td><code>true</code>, <code>false</code></td>
+        </tr>
+        <tr>
+            <td>NULL</td>
+            <td><code>null</code></td>
+        </tr>
+        <tr>
+            <td>Check type</td>
+            <td><code>gettype($var)</code></td>
+        </tr>
+        <tr>
+            <td>Debug</td>
+            <td><code>var_dump($var)</code></td>
+        </tr>
+        <tr>
+            <td>Constant</td>
+            <td><code>define("NAME", "value")</code></td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <h2>12. Homework</h2>
+
+    <ol>
+        <li>Create a "profile card" that displays information about a fictional character using at least 4 different data types.</li>
+        <li>Experiment with type juggling: What happens when you add a string and an integer?</li>
+        <li>Create constants for your application settings (site name, version, debug mode).</li>
+    </ol>
+
+    <div class="nav-links">
+        <a href="../day-01/index.html">&larr; Previous: Day 01 - Environment Setup</a>
+        <a href="../day-03/index.html">Next: Day 03 - Operators &rarr;</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 01: Environment Setup & First PHP Script - PHP Course</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Oxygen, Ubuntu, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      h1 {
+        color: #4f5b93;
+        border-bottom: 3px solid #4f5b93;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        color: #4f5b93;
+        margin-top: 40px;
+        margin-bottom: 15px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #ddd;
+      }
+      h3 {
+        color: #666;
+        margin-top: 25px;
+        margin-bottom: 10px;
+      }
+      p {
+        margin-bottom: 15px;
+      }
+      ul,
+      ol {
+        margin-bottom: 15px;
+        padding-left: 30px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+      code {
+        background: #e8e8e8;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+        font-size: 0.9em;
+      }
+      pre {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 15px;
+        border-radius: 5px;
+        overflow-x: auto;
+        margin-bottom: 20px;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+        color: inherit;
+      }
+      .ascii-box {
+        background: #fff;
+        border: 1px solid #ddd;
+        padding: 15px;
+        font-family: monospace;
+        margin-bottom: 20px;
+        border-radius: 5px;
+      }
+      .learning-objectives {
+        background: #e8f4e8;
+        border-left: 4px solid #4caf50;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 0 5px 5px 0;
+      }
+      .tip {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 0 5px 5px 0;
+      }
+      .warning {
+        background: #f8d7da;
+        border-left: 4px solid #dc3545;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 0 5px 5px 0;
+      }
+      .info {
+        background: #e3f2fd;
+        border-left: 4px solid #2196f3;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 0 5px 5px 0;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        background: #fff;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+      th {
+        background: #4f5b93;
+        color: white;
+      }
+      tr:nth-child(even) {
+        background: #f9f9f9;
+      }
+      hr {
+        border: none;
+        border-top: 1px solid #ddd;
+        margin: 30px 0;
+      }
+      .nav-links {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 2px solid #4f5b93;
+      }
+      .nav-links a {
+        color: #4f5b93;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .nav-links a:hover {
+        text-decoration: underline;
+      }
+      .exercise {
+        background: #e3f2fd;
+        border-left: 4px solid #2196f3;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 0 5px 5px 0;
+      }
+      strong {
+        color: #4f5b93;
+      }
+      .comment {
+        color: #6a9955;
+      }
+      .file-tree {
+        background: #fff;
+        border: 1px solid #ddd;
+        padding: 15px;
+        font-family: monospace;
+        margin-bottom: 20px;
+        border-radius: 5px;
+      }
+      a {
+        color: #4f5b93;
+      }
+      .image-showcase img {
+        max-width: 600px;
+        min-height: 300px;
+        height: auto;
+      }
+      .image-showcase figcaption {
+        font-size: 1.4em;
+        font-weight: 500;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Day 01: Environment Setup & First PHP Script</h1>
+
+    <div class="learning-objectives">
+      <h2 style="margin-top: 0; border: none">Learning Objectives</h2>
+      <p>By the end of today, you will:</p>
+      <ul>
+        <li>Install a local PHP development environment</li>
+        <li>Understand how PHP works with a web server</li>
+        <li>Create and run your first PHP script</li>
+        <li>Learn the basic PHP syntax</li>
+      </ul>
+    </div>
+
+    <hr />
+
+    <h2>1. What is PHP?</h2>
+
+    <div class="ascii-box image-showcase">
+      <figure>
+        <img
+          src="./workinphp.png"
+          alt="Diagram showing how PHP works - from browser request to server processing to HTML response"
+          loading="lazy"
+        />
+        <figcaption>
+          How PHP works: Browser sends request → Server processes PHP → HTML
+          returned to browser
+        </figcaption>
+      </figure>
+    </div>
+
+    <p><strong>Key Points:</strong></p>
+    <ul>
+      <li>PHP code runs on the server, NOT in the browser</li>
+      <li>The browser only sees the HTML output</li>
+      <li>PHP files have the <code>.php</code> extension</li>
+    </ul>
+
+    <hr />
+
+    <h2>2. Installing Your Development Environment</h2>
+
+    <p>
+      <strong>Download PHP:</strong>
+      <a href="https://www.php.net/downloads.php" target="_blank"
+        >https://www.php.net/downloads.php</a
+      >
+    </p>
+
+    <h3>Option A: XAMPP (Recommended for Beginners)</h3>
+    <ol>
+      <li>
+        Download from:
+        <a href="https://www.apachefriends.org/" target="_blank"
+          >https://www.apachefriends.org/</a
+        >
+      </li>
+      <li>Install and open XAMPP Control Panel</li>
+      <li>Start <strong>Apache</strong> and <strong>MySQL</strong></li>
+      <li>
+        Your web files go in: <code>C:\xampp\htdocs\</code> (Windows) or
+        <code>/Applications/XAMPP/htdocs/</code> (Mac)
+      </li>
+    </ol>
+
+    <h3>Option B: MAMP (Mac)</h3>
+    <ol>
+      <li>
+        Download from:
+        <a href="https://www.mamp.info/" target="_blank"
+          >https://www.mamp.info/</a
+        >
+      </li>
+      <li>Install and start MAMP</li>
+      <li>Your web files go in: <code>/Applications/MAMP/htdocs/</code></li>
+    </ol>
+
+    <h3>Option C: Laravel Herd (Modern Alternative)</h3>
+    <ol>
+      <li>
+        Download from:
+        <a href="https://herd.laravel.com/" target="_blank"
+          >https://herd.laravel.com/</a
+        >
+      </li>
+      <li>Simple installation, works out of the box</li>
+    </ol>
+
+    <h3>Verify Installation</h3>
+    <p>Open terminal/command prompt and type:</p>
+    <pre><code>php -v</code></pre>
+
+    <p>You should see something like:</p>
+    <pre><code>PHP 8.2.0 (cli) (built: ...)</code></pre>
+
+    <h3>Option D: PHP Built-in Server (Quick Start)</h3>
+    <p>You can use PHP's built-in development server without XAMPP/MAMP:</p>
+    <pre><code>php -S localhost:8001</code></pre>
+    <p>Then open <code>http://localhost:8001</code> in your browser.</p>
+
+    <hr />
+
+    <h2>3. Your First PHP Script</h2>
+
+    <h3>Create the file</h3>
+    <p>Create a folder for today's work:</p>
+
+    <div class="file-tree">
+      <pre>
+htdocs/
+└── day-01/
+    └── index.php</pre
+      >
+    </div>
+
+    <h3>index.php</h3>
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My First PHP Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello from HTML!&lt;/h1&gt;
+
+    &lt;?php
+        echo "&lt;h2&gt;Hello from PHP!&lt;/h2&gt;";
+    ?&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <h3>Run it</h3>
+    <ol>
+      <li>Open your browser</li>
+      <li>Go to: <code>http://localhost/day-01/</code></li>
+      <li>You should see both headings!</li>
+    </ol>
+
+    <hr />
+
+    <h2>4. Understanding PHP Syntax</h2>
+
+    <h3>PHP Tags</h3>
+    <p>PHP code must be wrapped in special tags:</p>
+    <pre><code>&lt;?php
+    <span class="comment">// Your PHP code goes here</span>
+?&gt;</code></pre>
+
+    <h3>The <code>echo</code> Statement</h3>
+    <p><code>echo</code> outputs text/HTML to the browser:</p>
+    <pre><code>&lt;?php
+    echo "Hello, World!";
+    echo "&lt;p&gt;This is a paragraph&lt;/p&gt;";
+    echo "Line 1" . " Line 2";  <span class="comment">// Concatenation with dot (.)</span>
+?&gt;</code></pre>
+
+    <h3>Comments</h3>
+    <pre><code>&lt;?php
+    <span class="comment">// This is a single-line comment</span>
+
+    <span class="comment"># This is also a single-line comment</span>
+
+    <span class="comment">/*
+        This is a
+        multi-line comment
+    */</span>
+
+    echo "Comments are ignored by PHP";
+?&gt;</code></pre>
+
+    <h3>Semicolons Are Required!</h3>
+    <p>Every PHP statement must end with a semicolon <code>;</code></p>
+    <pre><code>&lt;?php
+    echo "Statement 1";   <span class="comment">// Correct</span>
+    echo "Statement 2";   <span class="comment">// Correct</span>
+    echo "Statement 3"    <span class="comment">// ERROR! Missing semicolon</span>
+?&gt;</code></pre>
+
+    <hr />
+
+    <h2>5. Practice Examples</h2>
+
+    <h3>Example 1: Multiple echo statements</h3>
+    <pre><code>&lt;?php
+    echo "&lt;h1&gt;Welcome to PHP&lt;/h1&gt;";
+    echo "&lt;p&gt;Today is my first day learning PHP.&lt;/p&gt;";
+    echo "&lt;p&gt;I am excited to build web applications!&lt;/p&gt;";
+?&gt;</code></pre>
+
+    <h3>Example 2: Mixing PHP and HTML</h3>
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Mixed Content&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;My Website&lt;/h1&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;?php
+            echo "&lt;p&gt;This content is generated by PHP.&lt;/p&gt;";
+        ?&gt;
+
+        &lt;p&gt;This content is pure HTML.&lt;/p&gt;
+
+        &lt;?php
+            echo "&lt;p&gt;Back to PHP again!&lt;/p&gt;";
+        ?&gt;
+    &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <h3>Example 3: Using print (alternative to echo)</h3>
+    <pre><code>&lt;?php
+    print "Hello ";
+    print "World!";
+
+    <span class="comment">// Difference: print returns 1, echo returns nothing</span>
+    <span class="comment">// echo is slightly faster</span>
+    <span class="comment">// echo can take multiple parameters: echo "a", "b", "c";</span>
+?&gt;</code></pre>
+
+    <hr />
+
+    <h2>6. Hands-On Exercises</h2>
+
+    <div class="exercise">
+      <h3>Exercise 1: Basic Output</h3>
+      <p>Create a file <code>exercise1.php</code> that displays:</p>
+      <ul>
+        <li>Your name in an <code>&lt;h1&gt;</code> tag</li>
+        <li>Your favorite hobby in a <code>&lt;p&gt;</code> tag</li>
+        <li>
+          Three things you want to learn in a <code>&lt;ul&gt;</code> list
+        </li>
+      </ul>
+    </div>
+
+    <div class="exercise">
+      <h3>Exercise 2: HTML Page with PHP</h3>
+      <p>Create <code>exercise2.php</code> - a complete HTML page where:</p>
+      <ul>
+        <li>The <code>&lt;title&gt;</code> is generated by PHP</li>
+        <li>The main content mixes HTML and PHP</li>
+      </ul>
+    </div>
+
+    <div class="exercise">
+      <h3>Exercise 3: Comment Practice</h3>
+      <p>Create <code>exercise3.php</code> with:</p>
+      <ul>
+        <li>At least one single-line comment</li>
+        <li>One multi-line comment</li>
+        <li>Code that explains what each <code>echo</code> does</li>
+      </ul>
+    </div>
+
+    <hr />
+
+    <h2>7. Common Errors & Solutions</h2>
+
+    <div class="warning">
+      <h3>Error: "Parse error: syntax error"</h3>
+      <p><strong>Cause:</strong> Missing semicolon or quote</p>
+      <pre><code><span class="comment">// Wrong</span>
+echo "Hello World"
+
+<span class="comment">// Correct</span>
+echo "Hello World";</code></pre>
+    </div>
+
+    <div class="warning">
+      <h3>Error: "Page shows raw PHP code"</h3>
+      <p>
+        <strong>Cause:</strong> PHP is not installed or file not accessed via
+        localhost
+      </p>
+      <p>
+        <strong>Solution:</strong> Make sure you access via
+        <code>http://localhost/</code> not by opening the file directly
+      </p>
+    </div>
+
+    <div class="warning">
+      <h3>Error: "Blank page"</h3>
+      <p><strong>Cause:</strong> PHP error with display_errors off</p>
+      <p><strong>Solution:</strong> Add this at the top of your file:</p>
+      <pre><code>&lt;?php
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+?&gt;</code></pre>
+    </div>
+
+    <hr />
+
+    <h2>8. Key Takeaways</h2>
+
+    <table>
+      <tr>
+        <th>Concept</th>
+        <th>Remember</th>
+      </tr>
+      <tr>
+        <td>PHP Tags</td>
+        <td><code>&lt;?php ... ?&gt;</code></td>
+      </tr>
+      <tr>
+        <td>Output</td>
+        <td><code>echo</code> or <code>print</code></td>
+      </tr>
+      <tr>
+        <td>Statements</td>
+        <td>End with semicolon <code>;</code></td>
+      </tr>
+      <tr>
+        <td>Comments</td>
+        <td><code>//</code>, <code>#</code>, or <code>/* */</code></td>
+      </tr>
+      <tr>
+        <td>File Extension</td>
+        <td><code>.php</code></td>
+      </tr>
+      <tr>
+        <td>Access</td>
+        <td>Via <code>http://localhost/</code></td>
+      </tr>
+    </table>
+
+    <hr />
+
+    <h2>9. Homework</h2>
+
+    <ol>
+      <li>
+        Create a personal profile page using PHP that includes:
+        <ul>
+          <li>Your name</li>
+          <li>A short bio</li>
+          <li>Your learning goals</li>
+        </ul>
+      </li>
+      <li>
+        Experiment: What happens if you forget the closing
+        <code>?&gt;</code> tag? (It's actually optional at the end of a file!)
+      </li>
+    </ol>
+
+    <hr />
+
+    <h2>Files in This Lesson</h2>
+
+    <div class="file-tree">
+      <pre>
+day-01/
+├── README.md (this file)
+├── index.php (first example)
+├── exercise1.php
+├── exercise2.php
+└── exercise3.php</pre
+      >
+    </div>
+
+    <div class="nav-links">
+      <span></span>
+      <a href="../day-02/index.html"
+        >Next: Day 02 - Variables & Data Types &rarr;</a
+      >
+    </div>
+  </body>
+</html>
