@@ -65,12 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['q'])) {
 <body>
     <h1>🔍 Search Example (GET Method)</h1>
 
-    <div class="info">
-        <strong>How GET works:</strong><br>
-        Data is sent via the URL query string. Try searching and notice the URL changes!<br>
-        This page is bookmarkable and shareable.
-    </div>
-
     <div class="search-box">
         <form method="GET" action="">
             <input type="text" name="q" placeholder="Search for PHP tutorials..."

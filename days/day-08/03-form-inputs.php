@@ -165,33 +165,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 print_r($displayData);
             ?></pre>
-
-            <h3>How to access each type in PHP:</h3>
-            <pre>
-// Text inputs
-$text = $_POST['text_input'];
-
-// Select and Radio (single value)
-$selected = $_POST['select_input'];
-$size = $_POST['radio_input'];
-
-// Checkboxes (array of values)
-$colors = $_POST['checkbox_input'] ?? [];
-foreach ($colors as $color) {
-    echo $color;
-}
-
-// Single checkbox (check if set)
-if (isset($_POST['agree'])) {
-    echo "User agreed!";
-}
-
-// Number
-$number = (int) $_POST['number_input'];
-
-// Hidden
-$secret = $_POST['hidden_input'];
-            </pre>
         </div>
     <?php endif; ?>
 </body>

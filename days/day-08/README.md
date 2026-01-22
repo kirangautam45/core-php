@@ -465,7 +465,122 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 ---
 
-## 13. Homework
+## 13. Building a Simple JSON API
+
+Forms can also send data to APIs. Here's how PHP handles JSON requests:
+
+### api.php - A Simple JSON API
+```php
+<?php
+header('Content-Type: application/json');
+
+// Handle JSON input
+$input = json_decode(file_get_contents('php://input'), true);
+
+// Also accept form data
+if (!$input) {
+    $input = $_POST;
+}
+
+$response = [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $input['username'] ?? '';
+
+    if (!empty($username)) {
+        $response = [
+            'success' => true,
+            'message' => "Welcome, $username!",
+            'data' => ['username' => $username]
+        ];
+    } else {
+        $response = [
+            'success' => false,
+            'message' => 'Username is required'
+        ];
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $q = $_GET['q'] ?? '';
+
+    if (!empty($q)) {
+        $response = [
+            'success' => true,
+            'message' => "Search results for: $q",
+            'data' => ['query' => $q]
+        ];
+    } else {
+        $response = [
+            'success' => true,
+            'message' => 'API is running',
+            'endpoints' => [
+                'POST /' => 'Login with username and password',
+                'GET /?q=term' => 'Search'
+            ]
+        ];
+    }
+}
+
+echo json_encode($response, JSON_PRETTY_PRINT);
+?>
+```
+
+### Key Concepts
+
+| Concept | Description |
+|---------|-------------|
+| `header('Content-Type: application/json')` | Tell browser to expect JSON |
+| `file_get_contents('php://input')` | Read raw POST body |
+| `json_decode()` | Convert JSON string to PHP array |
+| `json_encode()` | Convert PHP array to JSON string |
+| `JSON_PRETTY_PRINT` | Format JSON with indentation |
+
+### Testing the API
+
+```bash
+# GET request - API info
+curl http://localhost:8000/api.php
+
+# GET request - Search
+curl "http://localhost:8000/api.php?q=php"
+
+# POST request - Login (JSON)
+curl -X POST http://localhost:8000/api.php \
+  -H "Content-Type: application/json" \
+  -d '{"username": "john", "password": "secret"}'
+
+# POST request - Login (form data)
+curl -X POST http://localhost:8000/api.php \
+  -d "username=john&password=secret"
+```
+
+### Sample Responses
+
+**GET /** (no query):
+```json
+{
+    "success": true,
+    "message": "API is running",
+    "endpoints": {
+        "POST /": "Login with username and password",
+        "GET /?q=term": "Search"
+    }
+}
+```
+
+**POST with username**:
+```json
+{
+    "success": true,
+    "message": "Welcome, john!",
+    "data": {
+        "username": "john"
+    }
+}
+```
+
+---
+
+## 14. Homework
 
 1. Create a simple contact form with name, email, and message
 2. Build a search page using GET
