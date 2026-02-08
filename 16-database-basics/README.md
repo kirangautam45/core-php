@@ -81,13 +81,44 @@ id INT PRIMARY KEY AUTO_INCREMENT
 
 ## 🖥️ phpMyAdmin Demo (10 min)
 
+### Setup: Installing MySQL
+
+**macOS**
+```bash
+brew services start mysql
+```
+
+**Windows** – Choose one:
+
+| Option | Download | Notes |
+|--------|----------|-------|
+| **MySQL Installer** | [dev.mysql.com/downloads/installer](https://dev.mysql.com/downloads/installer/) | Official, includes MySQL Server. Add `C:\Program Files\MySQL\MySQL Server 8.x\bin` to PATH. |
+| **XAMPP** | [apachefriends.org](https://www.apachefriends.org/) | MySQL + Apache + PHP. Use Control Panel to start MySQL. PHP CLI: `C:\xampp\php\` |
+| **Laragon** | [laragon.org](https://laragon.org/) | Lightweight. Start MySQL from tray icon. PHP CLI included. |
+
+> **PHP CLI on Windows:** Add PHP to your PATH (e.g. `C:\xampp\php` or `C:\laragon\bin\php\php-x.x.x`), then run `php your_script.php` from Command Prompt or PowerShell.
+
+---
+
 ### Access phpMyAdmin
-1. Start MySQL: `brew services start mysql`
+1. **Start MySQL** (see Setup above)
 2. Open: `http://localhost/phpmyadmin` (or use terminal)
 
 ### Create Database (Terminal)
+
+**Option A – Run setup script** (creates database + tables + sample data):
 ```bash
-mysql -u root -e "CREATE DATABASE php_learning;"
+# macOS/Linux (from project root)
+mysql -u root -p < 16-database-basics/database_setup.sql
+
+# Windows
+mysql -u root -p < 16-database-basics\database_setup.sql
+```
+
+**Option B – Manual commands:**
+```bash
+# macOS / Windows (omit -p if root has no password)
+mysql -u root -p -e "CREATE DATABASE php_learning;"
 ```
 
 ### Create Table
@@ -99,6 +130,14 @@ CREATE TABLE users (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 ```
+
+---
+
+## 📁 Files
+
+| File | Description |
+|------|-------------|
+| `database_setup.sql` | Creates `php_learning` database with `users` and `students` tables |
 
 ---
 

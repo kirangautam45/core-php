@@ -1,0 +1,17 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/vendor
+    environment:
+      - PORT=80
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - DATABASE_URL=${DATABASE_URL}
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    network_mode: bridge

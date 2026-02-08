@@ -1,6 +1,8 @@
 # MySQL Setup Guide
 
-## 🔧 Reset MySQL Root Password (Homebrew on macOS)
+## 🔧 Reset MySQL Root Password
+
+### Homebrew on macOS
 
 Your MySQL root password needs to be reset. Follow these steps:
 
@@ -48,6 +50,45 @@ If successful, you should see:
 +---+
 ```
 
+### Windows (MySQL Installer / XAMPP / Laragon)
+
+**Step 1: Stop MySQL**
+```cmd
+net stop mysql80
+```
+*(Use `mysql` instead of `mysql80` if that's your service name. Check with `sc query` to list services.)*
+
+**Step 2: Start MySQL in Safe Mode**
+```cmd
+mysqld --skip-grant-tables --shared-memory
+```
+Leave this window open.
+
+**Step 3: Open a new Command Prompt and connect**
+```cmd
+mysql -u root
+```
+
+**Step 4: Reset password (run inside MySQL)**
+```sql
+FLUSH PRIVILEGES;
+ALTER USER 'root'@'localhost' IDENTIFIED BY '';
+EXIT;
+```
+
+**Step 5: Stop safe mode** (Ctrl+C in the first window), then restart MySQL:
+```cmd
+net start mysql80
+```
+
+**Step 6: Test**
+```cmd
+mysql -u root -e "SELECT 1;"
+```
+
+**XAMPP users:** MySQL is in `C:\xampp\mysql\bin`. Use that folder or add it to PATH.
+**Laragon users:** Use Laragon → MySQL → Stop, then run `mysqld` from `C:\laragon\bin\mysql\mysql-x.x.x\bin\`.
+
 ---
 
 ## 📦 Create All Practice Databases
@@ -71,7 +112,11 @@ SHOW DATABASES;
 
 ### Create Database and Table
 ```bash
-mysql -u root < days/day17/database_setup.sql
+# macOS/Linux (from project root)
+mysql -u root < 17-sql-crud/database_setup.sql
+
+# Windows: use backslashes, add -p if root has password
+# mysql -u root -p < 17-sql-crud\database_setup.sql
 ```
 
 Or manually:
@@ -164,7 +209,10 @@ DELETE FROM users WHERE age > 50;
 
 ### Create Database
 ```bash
-mysql -u root < days/day18/database_setup.sql
+# macOS/Linux
+mysql -u root < 18-php-mysql/database_setup.sql
+
+# Windows: mysql -u root -p < 18-php-mysql\database_setup.sql
 ```
 
 Or manually:
@@ -233,7 +281,10 @@ try {
 
 ### Create Database
 ```bash
-mysql -u root < days/day19/database_setup.sql
+# macOS/Linux
+mysql -u root < 19-insert-data/database_setup.sql
+
+# Windows: mysql -u root -p < 19-insert-data\database_setup.sql
 ```
 
 Or manually:
@@ -305,7 +356,10 @@ $lastId = $pdo->lastInsertId();
 
 ### Create Database with Sample Data
 ```bash
-mysql -u root < days/day20/database_setup.sql
+# macOS/Linux
+mysql -u root < 20-fetch-data/database_setup.sql
+
+# Windows: mysql -u root -p < 20-fetch-data\database_setup.sql
 ```
 
 Or manually:
@@ -455,19 +509,37 @@ $sql = "
 
 ## 🚀 Quick Setup - Run All SQL Files
 
+**macOS**
 ```bash
 # Make sure MySQL is running
 brew services start mysql
 
-# Run all setup files
-mysql -u root < days/day17/database_setup.sql
-mysql -u root < days/day18/database_setup.sql
-mysql -u root < days/day19/database_setup.sql
-mysql -u root < days/day20/database_setup.sql
+# Run all setup files (from project root)
+mysql -u root < 17-sql-crud/database_setup.sql
+mysql -u root < 18-php-mysql/database_setup.sql
+mysql -u root < 19-insert-data/database_setup.sql
+mysql -u root < 20-fetch-data/database_setup.sql
 
 # Verify databases created
 mysql -u root -e "SHOW DATABASES;"
 ```
+
+**Windows**
+```cmd
+REM Make sure MySQL is running (XAMPP: start from Control Panel; MySQL Installer: usually auto-starts)
+net start mysql80
+
+REM Run all setup files (from project root, e.g. C:\path\to\corephp)
+mysql -u root -p < 17-sql-crud\database_setup.sql
+mysql -u root -p < 18-php-mysql\database_setup.sql
+mysql -u root -p < 19-insert-data\database_setup.sql
+mysql -u root -p < 20-fetch-data\database_setup.sql
+
+REM Verify
+mysql -u root -p -e "SHOW DATABASES;"
+```
+
+*Or use **setup_all_databases.sql** for a single command – see [DATABASE_SETUP.md](DATABASE_SETUP.md).*
 
 ---
 
