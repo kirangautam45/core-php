@@ -4,6 +4,8 @@
 -- Run from project root:
 --   macOS/Linux: mysql -u root -p < 16-database-basics/database_setup.sql
 --   Windows:     mysql -u root -p < 16-database-basics\database_setup.sql
+
+-- mysql -u data -pdata -e "SHOW DATABASES;"  
 --
 -- Or copy-paste into phpMyAdmin SQL tab
 
