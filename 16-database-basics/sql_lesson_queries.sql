@@ -19,12 +19,12 @@ VALUES ('Evan Wright', 21);
 -- CRITICAL: Always use a WHERE clause, otherwise you update EVERY row!
 UPDATE students 
 SET age = 21 
-WHERE name = 'Alice Johnson';
+WHERE id = 1;
 
 -- Updating multiple columns
 UPDATE students 
 SET age = 23, email = 'charlie.new@email.com' 
-WHERE name = 'Charlie Brown';
+WHERE id = 1;
 
 -- 3. DELETE (Remove)
 -- Safety: Referring to ID is the safest way to delete

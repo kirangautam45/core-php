@@ -6,7 +6,7 @@
  */
 
 $host = 'localhost';
-$dbname = 'day17_practice';
+$dbname = 'php_learning';
 $username = 'data';
 $password = 'data';
 

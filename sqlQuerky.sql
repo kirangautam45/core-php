@@ -7,10 +7,15 @@
 --
 -- Or copy-paste into phpMyAdmin SQL tab
 
+### Access phpMyAdmin
+-- 1. **Start MySQL** (see Setup above)
+-- 2. Open: `http://localhost/phpmyadmin` (or use terminal)
+
 -- Create database
 CREATE DATABASE IF NOT EXISTS php_learning;
 
 USE php_learning;
+
 
 -- Table from phpMyAdmin Demo: users
 CREATE TABLE IF NOT EXISTS users (
@@ -20,27 +25,52 @@ CREATE TABLE IF NOT EXISTS users (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+DESCRIBE users;
+
+
+
+-- Optional: Insert sample data for users
+INSERT INTO users (name, email) VALUES
+    ('John Doe', 'john@example.com');
+    
+    INSERT INTO users (name, email) VALUES
+    ('Jane Smith', 'jane@example.com'),
+    ('Bob Wilson', 'bob@example.com');
+    
+    
+    SELECT * FROM users;
+
+
 -- Table from Practice Task: students
 CREATE TABLE IF NOT EXISTS students (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
-    email VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
     age INT
 );
-
--- Optional: Insert sample data for users
-INSERT INTO users (name, email) VALUES
-    ('John Doe', 'john@example.com'),
-    ('Jane Smith', 'jane@example.com'),
-    ('Bob Wilson', 'bob@example.com');
 
 -- Optional: Insert sample data for students
 INSERT INTO students (name, email, age) VALUES
     ('Alice Johnson', 'alice@email.com', 20),
     ('Charlie Brown', 'charlie@email.com', 22);
+    
+     SELECT name,age FROM students;
 
 -- Verify
 SHOW TABLES;
-SELECT 'users' AS table_name, COUNT(*) AS row_count FROM users
+
+SELECT 'user' AS table_name, COUNT(*) AS row_count FROM users
 UNION ALL
-SELECT 'students', COUNT(*) FROM students;
+SELECT 'student', COUNT(*) FROM students;
+
+
+
+
+-- CRITICAL: Always use a WHERE clause, otherwise you update EVERY row!
+UPDATE students 
+SET age = 21 , name="kiran Gautam"
+WHERE id = 1;
+
+
+DELETE FROM students 
+WHERE id = 1;

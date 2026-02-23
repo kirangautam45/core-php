@@ -342,7 +342,7 @@ if (isset($_GET['edit'])) {
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>S.N.</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Age</th>
@@ -350,9 +350,9 @@ if (isset($_GET['edit'])) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($users as $user): ?>
+                        <?php foreach ($users as $index => $user): ?>
                             <tr>
-                                <td><?= htmlspecialchars($user['id']) ?></td>
+                                <td><?= $index + 1 ?></td>
                                 <td><?= htmlspecialchars($user['name']) ?></td>
                                 <td><?= htmlspecialchars($user['email']) ?></td>
                                 <td><?= htmlspecialchars($user['age']) ?></td>
