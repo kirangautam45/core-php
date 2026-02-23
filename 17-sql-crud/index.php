@@ -18,17 +18,19 @@ require_once __DIR__ . '/db_config.php';
 $message = '';
 $messageType = '';
 
-// CREATE - Add a new user
+// CREATE - Add a new student
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] === 'create') {
         try {
-            $stmt = $pdo->prepare("INSERT INTO users (name, email, age) VALUES (:name, :email, :age)");
+            $stmt = $pdo->prepare("INSERT INTO students (name, email, age, grade, phone) VALUES (:name, :email, :age, :grade, :phone)");
             $stmt->execute([
                 'name' => $_POST['name'],
                 'email' => $_POST['email'],
-                'age' => $_POST['age']
+                'age' => $_POST['age'],
+                'grade' => $_POST['grade'],
+                'phone' => $_POST['phone']
             ]);
-            $message = "User created successfully!";
+            $message = "Student created successfully!";
             $messageType = 'success';
         } catch (PDOException $e) {
             if ($e->getCode() == 23000) {
@@ -40,38 +42,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         }
     }
 
-    // UPDATE - Modify a user
+    // UPDATE - Modify a student
     if ($_POST['action'] === 'update') {
-        $stmt = $pdo->prepare("UPDATE users SET name = :name, email = :email, age = :age WHERE id = :id");
+        $stmt = $pdo->prepare("UPDATE students SET name = :name, email = :email, age = :age, grade = :grade, phone = :phone WHERE id = :id");
         $stmt->execute([
             'id' => $_POST['id'],
             'name' => $_POST['name'],
             'email' => $_POST['email'],
-            'age' => $_POST['age']
+            'age' => $_POST['age'],
+            'grade' => $_POST['grade'],
+            'phone' => $_POST['phone']
         ]);
-        $message = "User updated successfully!";
+        $message = "Student updated successfully!";
         $messageType = 'success';
     }
 
-    // DELETE - Remove a user
+    // DELETE - Remove a student
     if ($_POST['action'] === 'delete') {
-        $stmt = $pdo->prepare("DELETE FROM users WHERE id = :id");
+        $stmt = $pdo->prepare("DELETE FROM students WHERE id = :id");
         $stmt->execute(['id' => $_POST['id']]);
-        $message = "User deleted successfully!";
+        $message = "Student deleted successfully!";
         $messageType = 'success';
     }
 }
 
-// READ - Get all users
-$stmt = $pdo->query("SELECT * FROM users ORDER BY id");
-$users = $stmt->fetchAll();
+// READ - Get all students
+$stmt = $pdo->query("SELECT * FROM students ORDER BY id");
+$students = $stmt->fetchAll();
 
-// Check if editing a user
-$editUser = null;
+// Check if editing a student
+$editStudent = null;
 if (isset($_GET['edit'])) {
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
+    $stmt = $pdo->prepare("SELECT * FROM students WHERE id = :id");
     $stmt->execute(['id' => $_GET['edit']]);
-    $editUser = $stmt->fetch();
+    $editStudent = $stmt->fetch();
 }
 ?>
 <!DOCTYPE html>
@@ -79,7 +83,7 @@ if (isset($_GET['edit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Day 17: CRUD Practice - User Management</title>
+    <title>Day 17: CRUD Practice - Student Management</title>
     <style>
         * {
             margin: 0;
@@ -89,7 +93,7 @@ if (isset($_GET['edit'])) {
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #5c6bc0;
             min-height: 100vh;
             padding: 40px 20px;
         }
@@ -190,24 +194,24 @@ if (isset($_GET['edit'])) {
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #5c6bc0;
             color: white;
         }
 
         .btn-success {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: #2ecc71;
             color: white;
         }
 
         .btn-danger {
-            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            background: #e74c3c;
             color: white;
             padding: 8px 15px;
             font-size: 0.85rem;
         }
 
         .btn-edit {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: #9b59b6;
             color: white;
             padding: 8px 15px;
             font-size: 0.85rem;
@@ -226,7 +230,7 @@ if (isset($_GET['edit'])) {
         }
 
         th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #5c6bc0;
             color: white;
             font-weight: 600;
             text-transform: uppercase;
@@ -293,50 +297,55 @@ if (isset($_GET['edit'])) {
 </head>
 <body>
     <div class="container">
-        <h1>User Management System</h1>
+        <h1>Student Management System</h1>
 
         <?php if ($message): ?>
             <div class="message <?= $messageType ?>"><?= htmlspecialchars($message) ?></div>
         <?php endif; ?>
 
-        <!-- Create/Edit User Form -->
+        <!-- Create/Edit Student Form -->
         <div class="card">
-            <h2><?= $editUser ? 'Edit User' : 'Add New User' ?></h2>
+            <h2><?= $editStudent ? 'Edit Student' : 'Add New Student' ?></h2>
             <form method="POST">
-                <input type="hidden" name="action" value="<?= $editUser ? 'update' : 'create' ?>">
-                <?php if ($editUser): ?>
-                    <input type="hidden" name="id" value="<?= $editUser['id'] ?>">
+                <input type="hidden" name="action" value="<?= $editStudent ? 'update' : 'create' ?>">
+                <?php if ($editStudent): ?>
+                    <input type="hidden" name="id" value="<?= $editStudent['id'] ?>">
                 <?php endif; ?>
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required placeholder="Enter name" value="<?= $editUser ? htmlspecialchars($editUser['name']) : '' ?>">
+                        <input type="text" id="name" name="name" required placeholder="Enter name" value="<?= $editStudent ? htmlspecialchars($editStudent['name']) : '' ?>">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required placeholder="Enter email" value="<?= $editUser ? htmlspecialchars($editUser['email']) : '' ?>">
+                        <input type="email" id="email" name="email" required placeholder="Enter email" value="<?= $editStudent ? htmlspecialchars($editStudent['email']) : '' ?>">
                     </div>
                     <div class="form-group">
                         <label for="age">Age</label>
-                        <input type="number" id="age" name="age" required placeholder="Enter age" min="1" max="150" value="<?= $editUser ? htmlspecialchars($editUser['age']) : '' ?>">
+                        <input type="number" id="age" name="age" required placeholder="Enter age" min="1" max="150" value="<?= $editStudent ? htmlspecialchars($editStudent['age']) : '' ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="grade">Grade</label>
+                        <input type="text" id="grade" name="grade" placeholder="e.g. 10th" value="<?= $editStudent ? htmlspecialchars($editStudent['grade']) : '' ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone" placeholder="e.g. 555-0101" value="<?= $editStudent ? htmlspecialchars($editStudent['phone'] ?? '') : '' ?>">
                     </div>
                 </div>
-                <button type="submit" class="btn <?= $editUser ? 'btn-primary' : 'btn-success' ?>"><?= $editUser ? 'Update User' : 'Add User' ?></button>
-                <?php if ($editUser): ?>
+                <button type="submit" class="btn <?= $editStudent ? 'btn-primary' : 'btn-success' ?>"><?= $editStudent ? 'Update Student' : 'Add Student' ?></button>
+                <?php if ($editStudent): ?>
                     <a href="<?= url('index.php') ?>" class="btn btn-cancel">Cancel</a>
                 <?php endif; ?>
             </form>
         </div>
 
-        <!-- Users Table -->
+        <!-- Students Table -->
         <div class="card">
-            <h2>All Users</h2>
-            <?php if (empty($users)): ?>
+            <h2>All Students</h2>
+            <?php if (empty($students)): ?>
                 <div class="empty-state">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-                    </svg>
-                    <p>No users found. Add your first user above!</p>
+                    <p>No students found. Add your first student above!</p>
                 </div>
             <?php else: ?>
                 <table>
@@ -346,21 +355,25 @@ if (isset($_GET['edit'])) {
                             <th>Name</th>
                             <th>Email</th>
                             <th>Age</th>
+                            <th>Grade</th>
+                            <th>Phone</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($users as $index => $user): ?>
+                        <?php foreach ($students as $index => $student): ?>
                             <tr>
                                 <td><?= $index + 1 ?></td>
-                                <td><?= htmlspecialchars($user['name']) ?></td>
-                                <td><?= htmlspecialchars($user['email']) ?></td>
-                                <td><?= htmlspecialchars($user['age']) ?></td>
+                                <td><?= htmlspecialchars($student['name']) ?></td>
+                                <td><?= htmlspecialchars($student['email']) ?></td>
+                                <td><?= htmlspecialchars($student['age']) ?></td>
+                                <td><?= $student['grade'] ? htmlspecialchars($student['grade']) : '<span style="color:#bbb;font-style:italic;">null</span>' ?></td>
+                                <td><?= $student['phone'] ? htmlspecialchars($student['phone']) : '<span style="color:#bbb;font-style:italic;">null</span>' ?></td>
                                 <td class="actions">
-                                    <a href="<?= url('index.php', 'edit=' . $user['id']) ?>" class="btn btn-edit">Edit</a>
+                                    <a href="<?= url('index.php', 'edit=' . $student['id']) ?>" class="btn btn-edit">Edit</a>
                                     <form method="POST" style="display:inline;">
                                         <input type="hidden" name="action" value="delete">
-                                        <input type="hidden" name="id" value="<?= $user['id'] ?>">
+                                        <input type="hidden" name="id" value="<?= $student['id'] ?>">
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </td>

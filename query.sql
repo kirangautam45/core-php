@@ -1,7 +1,11 @@
-CREATE DATABASE school_db;
+### Access phpMyAdmin
+-- 1. **Start MySQL**
+-- 2. Open: `http://localhost/phpmyadmin`
+
+CREATE DATABASE IF NOT EXISTS school_db;
 USE school_db;
 
-CREATE TABLE students (
+CREATE TABLE IF NOT EXISTS students (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     age INT,
@@ -16,13 +20,9 @@ INSERT INTO students (name, age, grade, email)
 VALUES ('Jane Smith', 17, '11th', 'jane.smith@email.com');
 
 INSERT INTO students (name, age, grade, email) 
-VALUES ('Mike Johnson', 15, '9th', 'mike.j@email.com');
-
-INSERT INTO students (name, age, grade, email) 
-VALUES ('Emily Davis', 16, '10th', 'emily.d@email.com');
-
-INSERT INTO students (name, age, grade, email) 
-VALUES ('Sarah Wilson', 18, '12th', 'sarah.w@email.com');
+VALUES ('Mike Johnson', 15, '9th', 'mike.j@email.com'),
+ ('Emily Davis', 16, '10th', 'emily.d@email.com'),
+ ('Sarah Wilson', 18, '12th', 'sarah.w@email.com');
 
 
 INSERT INTO students (name, age, grade, email) VALUES
@@ -34,9 +34,8 @@ SELECT * FROM students;
 SELECT name, grade FROM students;
 SELECT * FROM students WHERE grade = '10th';
 SELECT * FROM students WHERE age > 16;
-SELECT * FROM students WHERE name = 'John Doe';
 SELECT * FROM students ORDER BY name ASC;
-SELECT * FROM students ORDER BY age ASC;
+SELECT * FROM students ORDER BY age DESC;
 
 UPDATE students 
 SET email = 'john.newemail@email.com' 
@@ -84,7 +83,7 @@ SELECT * FROM students WHERE email LIKE '%@email.com'; -- Specific domain
 SELECT * FROM students ORDER BY age DESC;
 
 -- Limit (Good for pagination or just peeking at data)
-SELECT * FROM users LIMIT 2;
+SELECT * FROM students LIMIT 2;
 
 -- Combining them: "Get the 3 youngest students"
 SELECT * FROM students ORDER BY age ASC LIMIT 3;
@@ -139,5 +138,5 @@ SELECT name, age, grade
 FROM students 
 ORDER BY name ASC;
 
-
+ 
 
