@@ -222,7 +222,7 @@ SELECT age, COUNT(*) as count FROM users GROUP BY age;
 
 ```
 Host:     localhost
-Database: day17_practice
+Database: school_db
 Username: data
 Password: data
 ```
@@ -230,3 +230,131 @@ Password: data
 ---
 
 ## ➡️ Next: Day 18 - Connect PHP to MySQL
+
+
+| Environment | Username | Password |
+|---|---|---|
+| XAMPP | `root` | *(empty)* |
+| MAMP | `root` | `root` |
+| Laravel Herd / DBngin | `root` | *(empty)* |
+| Custom user | your username | *(empty)* |
+
+---
+
+## 🔷 PDO (PHP Data Objects) Concepts Used
+
+### 1. `new PDO(DSN, username, password)` — Creating a Connection
+```php
+$pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+```
+- **DSN** (Data Source Name) specifies the driver (`mysql`), host, database name, and charset
+- `utf8mb4` supports full Unicode including emojis
+
+---
+
+### 2. `PDO::setAttribute()` — Configuring PDO Behavior
+```php
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+```
+
+| Attribute | Value | Meaning |
+|---|---|---|
+| `ATTR_ERRMODE` | `ERRMODE_EXCEPTION` | Throws `PDOException` on DB errors |
+| `ATTR_DEFAULT_FETCH_MODE` | `FETCH_ASSOC` | Returns rows as `['column' => 'value']` arrays |
+
+---
+
+### 3. `$pdo->prepare()` — Prepared Statements
+```php
+$stmt = $pdo->prepare("INSERT INTO students (...) VALUES (:name, :email, ...)");
+```
+- Separates SQL structure from data
+- **Prevents SQL Injection** — the most important security benefit
+
+---
+
+### 4. `$stmt->execute([...])` — Executing with Named Parameters
+```php
+$stmt->execute([
+    'name'  => $_POST['name'],
+    'email' => $_POST['email'],
+]);
+```
+- Named placeholders `:name`, `:email` are bound at execution time
+- Data is automatically escaped/sanitized by PDO
+
+---
+
+### 5. `$pdo->query()` — Simple Query (no user input)
+```php
+$stmt = $pdo->query("SELECT * FROM students ORDER BY id");
+```
+- Used only when **no user input** is involved (safe from injection by design here)
+
+---
+
+### 6. `fetchAll()` — Fetch All Rows
+```php
+$students = $stmt->fetchAll();
+```
+- Returns all matching rows as an array of associative arrays (because `FETCH_ASSOC` is the default)
+
+---
+
+### 7. `fetch()` — Fetch a Single Row
+```php
+$editStudent = $stmt->fetch();
+```
+- Returns one row — used when editing a single student by ID
+
+---
+
+### 8. `try / catch (PDOException $e)` — Error Handling
+```php
+try {
+    // DB operations
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
+}
+```
+- `PDOException` is the specific exception class thrown by PDO
+- `$e->getCode()` — gets the **SQLSTATE error code** (e.g., `23000` = duplicate entry / unique constraint violation)
+- `$e->getMessage()` — human-readable error message
+
+---
+
+### 9. `require_once` — Including the Config
+```php
+require_once __DIR__ . '/db_config.php';
+```
+- Loads the database connection exactly once; fails with a fatal error if not found
+- `__DIR__` ensures the path is always relative to the file's location
+
+---
+
+## 🔑 Key Concepts to Explain
+
+| # | Concept | Explanation |
+|---|---|---|
+| 1 | **What is PDO?** | PHP abstraction layer for databases — works with MySQL, SQLite, PostgreSQL, etc. |
+| 2 | **Why PDO over `mysqli_*`?** | Database-agnostic, OOP style, prepared statements built-in |
+| 3 | **SQL Injection** | Why `prepare()` + `execute()` is safer than string concatenation |
+| 4 | **Named vs Positional Placeholders** | `:name` vs `?` — this project uses named placeholders |
+| 5 | **CRUD** | Create (INSERT), Read (SELECT), Update (UPDATE), Delete (DELETE) — all 4 are here |
+| 6 | **`FETCH_ASSOC` vs `FETCH_NUM`** | Associative array by column name vs indexed by number |
+| 7 | **Error Handling** | `PDOException`, `ERRMODE_EXCEPTION`, error codes like `23000` |
+| 8 | **`require_once` for separation of concerns** | Config separated from logic |
+| 9 | **HTTP POST handling** | Form submissions use `$_POST['action']` to route to create/update/delete |
+| 10 | **`htmlspecialchars()`** | XSS prevention when outputting user data to HTML |
+
+---
+
+## 🛡️ Security Points
+
+| Check | Status | Detail |
+|---|---|---|
+| SQL Injection | ✅ Safe | `prepare()` + named parameters used throughout |
+| XSS | ✅ Safe | `htmlspecialchars()` on all HTML output |
+| Duplicate Email | ✅ Handled | Caught using SQLSTATE error code `23000` |
+| DB Credentials | ⚠️ Hardcoded | In production, use environment variables (`.env`) |

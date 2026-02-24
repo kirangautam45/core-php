@@ -89,20 +89,11 @@ SELECT * FROM students LIMIT 2;
 SELECT * FROM students ORDER BY age ASC LIMIT 3;
 
 
--- ==========================================
--- PART 3: AGGREGATES
--- Doing math on the data
--- ==========================================
 
 SELECT COUNT(*) AS total_students FROM students;
 SELECT AVG(age) AS average_age FROM students;
 SELECT MAX(age) AS oldest_age FROM students;
 
-
--- ==========================================
--- PART 4: COMPARING STRUCTURE CHANGES (DDL)
--- Concepts for modifying tables
--- ==========================================
 
 -- Add a new column (e.g., for phone numbers)
  ALTER TABLE students ADD phone VARCHAR(15);
@@ -111,10 +102,6 @@ SELECT MAX(age) AS oldest_age FROM students;
 ALTER TABLE students MODIFY name VARCHAR(150);
 
 
--- ==========================================
--- PRACTICE ANSWERS
--- Solutions to the challenges
--- ==========================================
 
 -- 1. Find user by email
 SELECT * FROM users WHERE email = 'john@example.com';

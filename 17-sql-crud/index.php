@@ -1,11 +1,4 @@
 <?php
-/**
- * Day 17: CRUD Practice
- *
- * Complete CRUD (Create, Read, Update, Delete) operations
- * combined in a single practical example
- */
-
 // Helper function for URLs that work both via router and directly
 function url($file, $params = '') {
     $base = isset($_GET['day']) ? "?day=17&file=$file" : $file;
