@@ -1,11 +1,6 @@
 <?php
 session_start();
 require __DIR__ . '/db.php';
-// SupabaseStorage is autoloaded via composer or needs to be included if not. 
-// Assuming it's in the root or autoloaded. Based on register.php usage, let's include it if class not exists, just to be safe, or assume autoload.
-// However, register.php didn't explicit include, but db.php requires vendor/autoload. If SupabaseStorage is not in namespace/composer, we might need to require it.
-// Checking file listing, SupabaseStorage.php is in root. Composer autoload usually maps src. 
-// Let's add require just in case, similar to how we might need it if not autoloaded.
 require_once __DIR__ . '/SupabaseStorage.php';
 
 // Check if logged in

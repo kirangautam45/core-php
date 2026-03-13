@@ -697,7 +697,7 @@ function getDayFiles($dayNum, $dayFolders) {
             <div class="stat-label">Min/Day</div>
           </div>
           <div class="stat">
-            <div class="stat-value">5</div>
+            <div class="stat-value">3</div>
             <div class="stat-label">Phases</div>
           </div>
           <div class="stat">

@@ -5,7 +5,6 @@ services:
       - "8080:80"
     volumes:
       - .:/var/www/html
-      - /var/www/html/vendor
     environment:
       - PORT=80
       - SUPABASE_URL=${SUPABASE_URL}
