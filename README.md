@@ -1,10 +1,45 @@
-# PHP Learning Journey
+# PHP Learning Journey — 45 Days of Core PHP & MySQL
 
-A structured 45-day PHP learning plan from fundamentals to building real-world applications.
+**A free, beginner-friendly PHP course: 20+ hands-on lessons from "Hello World" to secure login systems and MySQL CRUD — no frameworks, just core PHP.**
 
-## Overview
+[![GitHub stars](https://img.shields.io/github/stars/kirangautam45/core-php?style=social)](https://github.com/kirangautam45/core-php/stargazers)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
+![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-PDO-4479A1?logo=mysql&logoColor=white)
 
-This repository contains my progress through a comprehensive PHP learning curriculum, culminating in a full CRUD project.
+> ⭐ **If these lessons help you learn or teach PHP, please star the repo** — it helps other beginners find it.
+
+**Jump to:** [Lessons](#progress-tracker) · [Quick start](#quick-start) · [Guides](#guides) · [Full 45-day plan](php-learning-plan.md) · [Contributing](#contributing)
+
+## Who this is for
+
+- Beginners who know basic HTML and want to learn backend development
+- Teachers looking for a ready-made, day-by-day PHP curriculum
+- Developers who want to understand **core PHP** before jumping into Laravel
+
+Every lesson folder has its own `README.md` explaining the concept, plus runnable example files.
+
+## Quick start
+
+```bash
+git clone https://github.com/kirangautam45/core-php.git
+cd core-php/01-hello-world
+php -S localhost:8000
+```
+
+Open http://localhost:8000 in your browser. For the database lessons (Day 16+), follow [MYSQL_SETUP.md](MYSQL_SETUP.md) first.
+
+## Guides
+
+| Guide | What it covers |
+|---|---|
+| [php-learning-plan.md](php-learning-plan.md) | The full 45-day plan with daily topics |
+| [MYSQL_SETUP.md](MYSQL_SETUP.md) | Installing and configuring MySQL |
+| [DATABASE_SETUP.md](DATABASE_SETUP.md) | Creating the databases used in the lessons |
+| [SQL_BEGINNERS_GUIDE.md](SQL_BEGINNERS_GUIDE.md) | SQL basics for beginners: databases, tables and CRUD queries |
+| [GIT-GUIDE.md](GIT-GUIDE.md) | Everyday Git commands: setup, commits, branches |
+| [code-review-template.md](code-review-template.md) | Code review assessment for grading student projects |
 
 ## Progress Tracker
 
@@ -140,6 +175,18 @@ By the end of this 45-day journey:
 - [W3Schools PHP Tutorial](https://www.w3schools.com/php/)
 - [PHP The Right Way](https://phptherightway.com/)
 
+## Contributing
+
+Found a bug in an example, a typo, or have a better exercise idea? Contributions are welcome:
+
+1. Fork the repo and create a branch: `git checkout -b fix/day-09-validation`
+2. Make your change and commit it with a clear message
+3. Open a pull request describing what you changed and why
+
 ## License
 
-This project is for educational purposes.
+Released under the [MIT License](LICENSE) — free to use, adapt and teach from. Attribution is appreciated.
+
+---
+
+<p align="center">Made with ❤️ by <a href="https://github.com/kirangautam45">Kiran Gautam</a> · <a href="https://kirangtm.com.np/">kirangtm.com.np</a><br>⭐ Star the repo if you found it useful!</p>
